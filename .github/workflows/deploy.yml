@@ -1,0 +1,31 @@
+name: Deploy para Hostinger via FTP
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Sync arquivos
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Deploy via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: 185.211.7.139
+          username: u941618403
+          password: ${{ secrets.FTP_PASSWORD }}
+          port: 21
+          server-dir: /public_html/
+          local-dir: ./
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.github/**
+            **/README.md
+            **/.gitignore
+            **/node_modules/**
