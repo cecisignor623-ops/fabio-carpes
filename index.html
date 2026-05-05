@@ -1,0 +1,1590 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Fábio Carpes - Hipnoterapeuta</title>
+<link rel="icon" type="image/png" href="assets/favicon.png" />
+<link rel="apple-touch-icon" href="assets/favicon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* =====================================================
+     RESET + BASE
+  ===================================================== */
+  *,
+  *::before,
+  *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root{
+    --bg: #0a0a0f;
+    --bg-elev: #111119;
+    --bg-card: #13131c;
+    --blue: #4F8EF7;
+    --blue-glow: rgba(79, 142, 247, 0.45);
+    --pink: #EC2D7A;
+    --pink-glow: rgba(236, 45, 122, 0.45);
+    --gold: #C9A84C;
+    --gold-glow: rgba(201, 168, 76, 0.4);
+    --text: #e9ecf1;
+    --text-muted: #9096a3;
+    --border: rgba(255,255,255,0.08);
+    --grad-hero: radial-gradient(ellipse at top, rgba(79,142,247,0.15), transparent 60%),
+                 radial-gradient(ellipse at bottom, rgba(201,168,76,0.08), transparent 70%);
+    --ff-title: 'Playfair Display', serif;
+    --ff-body: 'Inter', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body{
+    font-family: var(--ff-body);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4 { font-family: var(--ff-title); font-weight: 700; line-height: 1.15; letter-spacing: -0.01em; }
+  h1 { font-size: clamp(2.4rem, 6vw, 5rem); }
+  h2 { font-size: clamp(1.9rem, 4vw, 3rem); margin-bottom: 1rem; }
+  h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
+  p  { color: var(--text-muted); font-size: clamp(1rem, 1.1vw, 1.05rem); }
+
+  a { color: inherit; text-decoration: none; }
+  ::selection { background: var(--blue); color: #fff; }
+
+  .container{
+    width: min(1180px, 92%);
+    margin: 0 auto;
+  }
+
+  section { padding: clamp(4rem, 9vw, 7rem) 0; position: relative; }
+
+  .eyebrow{
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    background: linear-gradient(90deg, var(--blue), var(--pink));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 1.2rem;
+    font-weight: 700;
+    padding: 0.35rem 0.9rem;
+    border-radius: 999px;
+    border: 1px solid rgba(79,142,247,0.25);
+    position: relative;
+  }
+  .eyebrow::before{
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--pink);
+    box-shadow: 0 0 10px var(--pink);
+  }
+
+  /* =====================================================
+     BUTTONS
+  ===================================================== */
+  .btn{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    padding: 0.95rem 1.8rem;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    border: none;
+    position: relative;
+    transition: all 0.35s ease;
+    white-space: nowrap;
+  }
+  .btn-primary{
+    background: linear-gradient(135deg, var(--blue), #2f6ddc);
+    color: #fff;
+    box-shadow: 0 0 0 rgba(79,142,247,0);
+  }
+  .btn-primary:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 0 30px var(--blue-glow), 0 10px 30px rgba(0,0,0,0.4);
+  }
+  .btn-gold{
+    background: linear-gradient(135deg, var(--pink), #9b1e56);
+    color: #fff;
+    box-shadow: 0 0 0 rgba(236,45,122,0);
+  }
+  .btn-gold:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 0 30px var(--pink-glow), 0 0 40px rgba(236,45,122,0.25), 0 10px 30px rgba(0,0,0,0.4);
+  }
+  .btn-ghost{
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .btn-ghost:hover{
+    border-color: var(--blue);
+    color: var(--blue);
+  }
+
+  /* =====================================================
+     HEADER
+  ===================================================== */
+  header{
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    transition: all 0.4s ease;
+    padding: 1rem 0;
+    background: rgba(10,10,15,0);
+    backdrop-filter: blur(0px);
+  }
+  header.scrolled{
+    background: rgba(10,10,15,0.88);
+    backdrop-filter: blur(18px);
+    border-bottom: 1px solid var(--border);
+    padding: 0.6rem 0;
+  }
+  .nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .logo{
+    font-family: var(--ff-title);
+    font-weight: 700;
+    font-size: 1.25rem;
+    letter-spacing: 0.02em;
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+  }
+  .logo span { color: var(--gold); }
+  .logo img{
+    height: 92px;
+    width: auto;
+    display: block;
+    filter: drop-shadow(0 0 24px rgba(79,142,247,0.55)) drop-shadow(0 0 16px rgba(236,45,122,0.4));
+    transition: height 0.35s ease;
+  }
+  header.scrolled .logo img { height: 72px; }
+  .nav-links{
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+    font-size: 0.92rem;
+    font-weight: 500;
+  }
+  .nav-links a{
+    color: var(--text-muted);
+    transition: color 0.3s;
+    position: relative;
+  }
+  .nav-links a:hover{ color: var(--text); }
+  .nav-links a::after{
+    content: '';
+    position: absolute;
+    left: 0; bottom: -6px;
+    height: 1px;
+    width: 0;
+    background: var(--blue);
+    transition: width 0.3s;
+  }
+  .nav-links a:hover::after { width: 100%; }
+
+  @media (max-width: 820px){
+    .nav-links { display: none; }
+  }
+
+  /* =====================================================
+     HERO
+  ===================================================== */
+  .hero{
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    background:
+      radial-gradient(ellipse 60% 50% at 50% 40%, rgba(236,45,122,0.18), transparent 70%),
+      radial-gradient(ellipse 70% 50% at 20% 60%, rgba(79,142,247,0.22), transparent 70%),
+      radial-gradient(ellipse 60% 40% at 80% 30%, rgba(201,168,76,0.12), transparent 70%),
+      #0a0a0f;
+    overflow: hidden;
+    padding-top: 10rem;
+  }
+  .hero::before{
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 900px; height: 900px;
+    max-width: 120vw; max-height: 120vw;
+    transform: translate(-50%, -50%);
+    background: conic-gradient(from 0deg, transparent, rgba(79,142,247,0.08), transparent, rgba(236,45,122,0.08), transparent);
+    border-radius: 50%;
+    filter: blur(60px);
+    animation: heroSpin 22s linear infinite;
+    z-index: 0;
+    pointer-events: none;
+  }
+  @keyframes heroSpin {
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+  }
+  #neural-canvas{
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.75;
+    z-index: 1;
+    pointer-events: none;
+  }
+  .hero-content{
+    position: relative;
+    z-index: 3;
+    max-width: 960px;
+  }
+  .hero-name{
+    font-size: clamp(3.4rem, 9.5vw, 7rem);
+    font-weight: 900;
+    background: linear-gradient(120deg, var(--blue) 0%, #ffffff 35%, #ffffff 55%, var(--pink) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 1.4rem;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    filter: drop-shadow(0 0 40px rgba(79,142,247,0.35)) drop-shadow(0 0 30px rgba(236,45,122,0.25));
+    position: relative;
+  }
+  .hero-sub{
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.45rem 1.1rem;
+    border-radius: 999px;
+    border: 1px solid rgba(79,142,247,0.35);
+    background: rgba(79,142,247,0.08);
+    color: #cfe0ff;
+    font-size: 0.8rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    backdrop-filter: blur(8px);
+  }
+  .hero-sub::before{
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--pink);
+    box-shadow: 0 0 12px var(--pink);
+    animation: pulse 2s ease infinite;
+  }
+  @keyframes pulse {
+    0%,100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.3); }
+  }
+  .hero-headline{
+    font-family: var(--ff-title);
+    font-size: clamp(1.5rem, 3vw, 2.6rem);
+    line-height: 1.25;
+    margin-bottom: 2.8rem;
+    max-width: 780px;
+    font-weight: 400;
+    color: #e9ecf1;
+  }
+  .hero-headline em{
+    font-style: italic;
+    color: #d8dce4;
+  }
+  .hero-headline strong{
+    font-style: normal;
+    font-weight: 700;
+    background: linear-gradient(120deg, var(--blue), var(--pink));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .hero-ctas{
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .btn-primary{
+    background: linear-gradient(120deg, var(--blue), var(--pink));
+    background-size: 180% 100%;
+    background-position: 0% 50%;
+    transition: background-position 0.6s ease, transform 0.35s ease, box-shadow 0.35s ease;
+  }
+  .btn-primary:hover{
+    background-position: 100% 50%;
+    transform: translateY(-2px);
+    box-shadow: 0 0 30px var(--blue-glow), 0 0 40px var(--pink-glow), 0 10px 30px rgba(0,0,0,0.4);
+  }
+
+  .scroll-hint{
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 26px;
+    height: 42px;
+    border: 2px solid var(--text-muted);
+    border-radius: 14px;
+    z-index: 2;
+  }
+  .scroll-hint::before{
+    content: '';
+    position: absolute;
+    top: 6px;
+    left: 50%;
+    width: 3px;
+    height: 8px;
+    background: var(--blue);
+    border-radius: 2px;
+    transform: translateX(-50%);
+    animation: scrollDot 1.8s infinite;
+  }
+  @keyframes scrollDot {
+    0%   { transform: translate(-50%, 0); opacity: 1; }
+    80%  { transform: translate(-50%, 14px); opacity: 0; }
+    100% { transform: translate(-50%, 0); opacity: 0; }
+  }
+
+  /* =====================================================
+     URGENCY / COURSE BANNER
+  ===================================================== */
+  .urgency{
+    padding: 3rem 0;
+  }
+  .urgency-card{
+    position: relative;
+    background: linear-gradient(135deg, rgba(79,142,247,0.08), rgba(236,45,122,0.06));
+    border: 1px solid transparent;
+    border-radius: 24px;
+    padding: clamp(2rem, 4vw, 3rem);
+    text-align: center;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+  }
+  .urgency-card::before{
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 24px;
+    padding: 1.5px;
+    background: linear-gradient(135deg, var(--blue), var(--pink), var(--blue));
+    background-size: 200% 200%;
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+            mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    animation: borderShift 6s linear infinite;
+    pointer-events: none;
+  }
+  @keyframes borderShift{
+    0%   { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+  }
+  .urgency-tag{
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 1rem;
+    border-radius: 999px;
+    background: rgba(236,45,122,0.12);
+    border: 1px solid rgba(236,45,122,0.3);
+    color: var(--pink);
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    font-weight: 700;
+  }
+  .urgency-tag::before{
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--pink);
+    box-shadow: 0 0 10px var(--pink);
+    animation: pulse 2s ease infinite;
+  }
+  .urgency-card h2{
+    font-size: clamp(1.6rem, 3.2vw, 2.4rem);
+    margin-bottom: 0.8rem;
+    background: linear-gradient(120deg, #fff, var(--blue), var(--pink));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .urgency-meta{
+    color: var(--text-muted);
+    margin-bottom: 1.8rem;
+    font-size: 1rem;
+  }
+  .urgency-meta strong { color: var(--blue); }
+
+  /* =====================================================
+     ABOUT
+  ===================================================== */
+  .about-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  @media (max-width: 860px){ .about-grid { grid-template-columns: 1fr; gap: 2.5rem; } }
+
+  .about-visual{
+    position: relative;
+    aspect-ratio: 1 / 1.2;
+    max-width: 440px;
+    margin: 0 auto;
+    border-radius: 20px;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .about-visual::before{
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 22px;
+    padding: 2px;
+    background: linear-gradient(135deg, var(--blue), var(--pink));
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+            mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    z-index: 3;
+    pointer-events: none;
+  }
+  .about-visual::after{
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 40%, rgba(10,10,15,0.75) 100%);
+    z-index: 2;
+    pointer-events: none;
+  }
+  .about-visual img{
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+    filter: saturate(1.05) contrast(1.05);
+    transition: transform 0.8s ease;
+  }
+  .about-visual:hover img { transform: scale(1.04); }
+  .about-visual-glow-a,
+  .about-visual-glow-b{
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    z-index: 0;
+    pointer-events: none;
+  }
+  .about-visual-glow-a{
+    width: 260px; height: 260px;
+    background: var(--blue);
+    top: -60px; left: -60px;
+    opacity: 0.5;
+  }
+  .about-visual-glow-b{
+    width: 240px; height: 240px;
+    background: var(--pink);
+    bottom: -60px; right: -60px;
+    opacity: 0.4;
+  }
+
+  .about p { margin-bottom: 1.2rem; }
+  .about-stats{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+  .stat-num{
+    font-family: var(--ff-title);
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    background: linear-gradient(120deg, var(--blue), var(--pink));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 700;
+    display: block;
+  }
+  .stat-label{
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--text-muted);
+  }
+
+  /* =====================================================
+     HYPNOTHERAPY (MYTHS vs REALITY)
+  ===================================================== */
+  .myths-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+  @media (max-width: 760px){ .myths-grid { grid-template-columns: 1fr; } }
+
+  .myth-col{
+    padding: 2rem;
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+  }
+  .myth-col h3{
+    font-family: var(--ff-body);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+  }
+  .myth-col.myth h3 { color: #e06464; }
+  .myth-col.reality h3 { color: var(--blue); }
+  .myth-col ul{ list-style: none; }
+  .myth-col li{
+    padding: 0.85rem 0;
+    border-bottom: 1px dashed var(--border);
+    color: var(--text);
+    font-size: 0.98rem;
+    display: flex;
+    gap: 0.7rem;
+  }
+  .myth-col li:last-child { border-bottom: none; }
+  .myth-col.myth li::before    { content: '✕'; color: #e06464; font-weight: bold; }
+  .myth-col.reality li::before { content: '✓'; color: var(--blue);  font-weight: bold; }
+
+  /* =====================================================
+     FOR WHOM
+  ===================================================== */
+  .cards-grid{
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.9rem;
+    margin-top: 3rem;
+  }
+  @media (max-width: 1100px){
+    .cards-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+  @media (max-width: 640px){
+    .cards-grid { grid-template-columns: repeat(2, 1fr); gap: 0.7rem; }
+  }
+  .card{
+    padding: 1.6rem 1.1rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .card::before{
+    content:'';
+    position:absolute;
+    top:0; left:0;
+    width:100%; height:2px;
+    background: linear-gradient(90deg, var(--blue), var(--pink));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.45s ease;
+  }
+  .card:hover{
+    transform: translateY(-6px);
+    border-color: rgba(236,45,122,0.35);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.4), 0 0 30px rgba(79,142,247,0.1);
+  }
+  .card:hover::before { transform: scaleX(1); }
+  .card-icon{
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, rgba(79,142,247,0.18), rgba(236,45,122,0.15));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+    color: var(--blue);
+  }
+  .card h3 { margin-bottom: 0.4rem; font-family: var(--ff-body); font-size: 1rem; font-weight: 600; }
+  .card p  { font-size: 0.85rem; line-height: 1.5; }
+
+  /* =====================================================
+     APPROACHES — Hipnose & Regressão
+  ===================================================== */
+  .approaches-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+  @media (max-width: 860px){
+    .approaches-grid { grid-template-columns: 1fr; }
+  }
+  .approach-card{
+    position: relative;
+    padding: clamp(2rem, 3.5vw, 3rem);
+    background: linear-gradient(180deg, rgba(79,142,247,0.05), rgba(236,45,122,0.04));
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all 0.4s ease;
+  }
+  .approach-card::before{
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px; height: 100%;
+    background: linear-gradient(180deg, var(--blue), var(--pink));
+  }
+  .approach-card::after{
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 220px; height: 220px;
+    background: radial-gradient(circle, rgba(79,142,247,0.15), transparent 70%);
+    filter: blur(20px);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+  }
+  .approach-card:nth-child(2)::after{
+    background: radial-gradient(circle, rgba(236,45,122,0.18), transparent 70%);
+  }
+  .approach-card:hover{
+    transform: translateY(-4px);
+    border-color: rgba(236,45,122,0.3);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.4), 0 0 40px rgba(79,142,247,0.08);
+  }
+  .approach-card:hover::after { opacity: 1; }
+  .approach-num{
+    font-family: var(--ff-title);
+    font-size: 3.2rem;
+    background: linear-gradient(135deg, var(--blue), var(--pink));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 900;
+    line-height: 1;
+    opacity: 0.7;
+    margin-bottom: 0.8rem;
+    position: relative;
+    z-index: 1;
+  }
+  .approach-card h3{
+    font-size: clamp(1.4rem, 2.2vw, 1.9rem);
+    font-family: var(--ff-title);
+    margin-bottom: 1rem;
+    color: #fff;
+    position: relative;
+    z-index: 1;
+  }
+  .approach-card > p{
+    margin-bottom: 1.5rem;
+    color: var(--text-muted);
+    position: relative;
+    z-index: 1;
+  }
+  .approach-list{
+    list-style: none;
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--border);
+    position: relative;
+    z-index: 1;
+  }
+  .approach-list li{
+    padding: 0.7rem 0 0.7rem 1.6rem;
+    position: relative;
+    color: var(--text);
+    font-size: 0.95rem;
+    border-bottom: 1px dashed var(--border);
+  }
+  .approach-list li:last-child{ border-bottom: none; }
+  .approach-list li::before{
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 1.15rem;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--blue), var(--pink));
+    box-shadow: 0 0 10px rgba(236,45,122,0.4);
+  }
+
+  /* =====================================================
+     METHOD / TIMELINE
+  ===================================================== */
+  .timeline{
+    position: relative;
+    margin-top: 3.5rem;
+    padding-left: 2rem;
+  }
+  .timeline::before{
+    content: '';
+    position: absolute;
+    left: 6px; top: 6px; bottom: 6px;
+    width: 2px;
+    background: linear-gradient(180deg, var(--blue), var(--pink));
+    border-radius: 2px;
+  }
+  .tl-item{
+    position: relative;
+    padding-bottom: 2.5rem;
+    padding-left: 2rem;
+  }
+  .tl-item:last-child { padding-bottom: 0; }
+  .tl-item::before{
+    content: '';
+    position: absolute;
+    left: -2.05rem;
+    top: 4px;
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 2px solid var(--blue);
+    box-shadow: 0 0 0 4px rgba(79,142,247,0.15);
+  }
+  .tl-item.gold::before { border-color: var(--pink); box-shadow: 0 0 0 4px rgba(236,45,122,0.2); }
+  .tl-step{
+    font-size: 0.78rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--pink);
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+  }
+  .tl-item:not(.gold) .tl-step { color: var(--blue); }
+  .tl-item h3 {
+    font-family: var(--ff-body);
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+  }
+
+  /* =====================================================
+     TESTIMONIALS
+  ===================================================== */
+  .testimonials-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+  .testimonial{
+    padding: 2rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    position: relative;
+  }
+  .testimonial::before{
+    content: '"';
+    position: absolute;
+    top: 0.6rem;
+    left: 1.2rem;
+    font-family: var(--ff-title);
+    font-size: 4rem;
+    background: linear-gradient(135deg, var(--blue), var(--pink));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    opacity: 0.5;
+    line-height: 1;
+  }
+  .testimonial p{
+    color: var(--text);
+    font-style: italic;
+    margin-bottom: 1.5rem;
+    position: relative;
+  }
+  .t-author{
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    border-top: 1px solid var(--border);
+    padding-top: 1rem;
+  }
+  .t-avatar{
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--blue), var(--pink));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--ff-title);
+    font-weight: 700;
+    font-size: 1rem;
+    color: #fff;
+  }
+  .t-info strong { display: block; color: var(--text); font-weight: 600; }
+  .t-info span  { font-size: 0.85rem; color: var(--text-muted); }
+
+  /* =====================================================
+     BOOK
+  ===================================================== */
+  .book{
+    background: linear-gradient(180deg, transparent, rgba(79,142,247,0.04));
+  }
+  .book-wrap{
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 3.5rem;
+    align-items: center;
+  }
+  @media (max-width: 860px){ .book-wrap { grid-template-columns: 1fr; } }
+
+  .book-visual{
+    position: relative;
+    perspective: 1200px;
+    display: flex;
+    justify-content: center;
+  }
+  .book-photo{
+    position: relative;
+    max-width: 420px;
+    width: 100%;
+    border-radius: 18px;
+    overflow: hidden;
+    transform: rotateY(-8deg) rotateX(2deg);
+    transition: transform 0.6s ease;
+    box-shadow:
+      0 30px 80px rgba(0,0,0,0.6),
+      0 0 60px rgba(79,142,247,0.2),
+      0 0 60px rgba(236,45,122,0.15);
+  }
+  .book-photo:hover { transform: rotateY(0) rotateX(0); }
+  .book-photo img{
+    width: 100%;
+    height: auto;
+    display: block;
+    filter: saturate(1.1) contrast(1.05);
+  }
+  .book-photo::after{
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 60%, rgba(10,10,15,0.4) 100%);
+    pointer-events: none;
+  }
+  .book-badge{
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: linear-gradient(135deg, var(--blue), var(--pink));
+    color: #fff;
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    font-weight: 700;
+    padding: 0.5rem 1rem;
+    border-radius: 999px;
+    z-index: 2;
+    box-shadow: 0 6px 20px rgba(79,142,247,0.35), 0 6px 20px rgba(236,45,122,0.35);
+  }
+
+  /* =====================================================
+     COURSE (DETAILED)
+  ===================================================== */
+  .course{
+    background: linear-gradient(180deg, transparent, rgba(236,45,122,0.04));
+  }
+  .course-card{
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: clamp(2rem, 4vw, 3.5rem);
+    position: relative;
+    overflow: hidden;
+    margin-top: 2.5rem;
+  }
+  .course-card::before{
+    content: '';
+    position: absolute;
+    top: -100px; right: -100px;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(79,142,247,0.15), transparent 70%);
+    filter: blur(20px);
+  }
+  .course-card::after{
+    content: '';
+    position: absolute;
+    bottom: -80px; left: -80px;
+    width: 260px; height: 260px;
+    background: radial-gradient(circle, rgba(236,45,122,0.15), transparent 70%);
+    filter: blur(20px);
+  }
+  .course-grid{
+    position: relative;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 3rem;
+    z-index: 1;
+  }
+  @media (max-width: 860px){ .course-grid { grid-template-columns: 1fr; gap: 2rem; } }
+
+  .course-info h2 { margin-bottom: 1rem; }
+  .course-info > p { margin-bottom: 1.5rem; }
+  .course-features{
+    list-style: none;
+    margin: 1.5rem 0;
+  }
+  .course-features li{
+    padding: 0.7rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    border-bottom: 1px dashed var(--border);
+    color: var(--text);
+    font-size: 0.98rem;
+  }
+  .course-features li:last-child { border-bottom: none; }
+  .course-features li::before{
+    content: '◆';
+    color: var(--pink);
+    font-size: 0.7rem;
+  }
+
+  .course-sidebar{
+    padding: 2rem;
+    background: rgba(10,10,15,0.6);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    text-align: center;
+  }
+  .course-date{
+    font-family: var(--ff-title);
+    font-size: 2rem;
+    background: linear-gradient(120deg, var(--blue), var(--pink));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1.1;
+    margin-bottom: 0.3rem;
+    font-weight: 700;
+  }
+  .course-city{
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+  }
+  .course-seats{
+    display: inline-block;
+    padding: 0.45rem 1rem;
+    background: rgba(236,45,122,0.12);
+    border: 1px solid rgba(236,45,122,0.3);
+    color: var(--pink);
+    border-radius: 999px;
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+  }
+
+  /* =====================================================
+     FINAL CTA
+  ===================================================== */
+  .final-cta{
+    text-align: center;
+    padding: clamp(5rem, 10vw, 8rem) 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 30% 50%, rgba(79,142,247,0.15), transparent 60%),
+      radial-gradient(ellipse 60% 50% at 70% 50%, rgba(236,45,122,0.12), transparent 60%);
+  }
+  .final-cta h2{
+    font-size: clamp(2rem, 5vw, 3.6rem);
+    max-width: 800px;
+    margin: 0 auto 1.5rem;
+    background: linear-gradient(120deg, var(--blue) 0%, #fff 50%, var(--pink) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1.25;
+    filter: drop-shadow(0 0 30px rgba(79,142,247,0.3)) drop-shadow(0 0 30px rgba(236,45,122,0.2));
+  }
+  .final-cta p{
+    max-width: 600px;
+    margin: 0 auto 2.5rem;
+    font-size: 1.1rem;
+  }
+
+  /* =====================================================
+     FOOTER
+  ===================================================== */
+  footer{
+    padding: 3rem 0 2rem;
+    border-top: 1px solid var(--border);
+    text-align: center;
+  }
+  footer p{
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+  footer .logo { margin: 0 auto 0.8rem; font-size: 1.1rem; justify-content: center; }
+  footer .logo img { height: 130px; }
+
+  /* =====================================================
+     SCROLL ANIMATIONS
+  ===================================================== */
+  .reveal{
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .reveal.visible{
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+
+  /* =====================================================
+     MISC
+  ===================================================== */
+  @media (max-width: 520px){
+    .hero-ctas .btn { width: 100%; justify-content: center; }
+    .urgency-card .btn { width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header id="header">
+  <div class="container nav">
+    <a href="#" class="logo" aria-label="Fábio Carpes — Hipnoterapeuta">
+      <img src="assets/logo.png" alt="Fábio Carpes" />
+    </a>
+    <ul class="nav-links">
+      <li><a href="#sobre">Sobre</a></li>
+      <li><a href="#abordagens">Abordagens</a></li>
+      <li><a href="#metodo">Método</a></li>
+      <li><a href="#livro">Livro</a></li>
+      <li><a href="#curso">Curso</a></li>
+      <li><a href="https://pay.kiwify.com.br/lXce22U" target="_blank" rel="noopener">Inscrições</a></li>
+    </ul>
+    <a href="https://pay.kiwify.com.br/lXce22U" target="_blank" rel="noopener" class="btn btn-gold">Garantir Vaga →</a>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <canvas id="neural-canvas"></canvas>
+  <div class="container hero-content">
+    <p class="hero-sub reveal">Neurocientista · Hipnoterapeuta</p>
+    <h1 class="hero-name reveal reveal-delay-1">Fábio Carpes</h1>
+    <p class="hero-headline reveal reveal-delay-2">
+      <em>Sua mente tem o poder de te curar.</em><br>
+      <strong>A hipnoterapia é o caminho.</strong>
+    </p>
+    <div class="hero-ctas reveal reveal-delay-3">
+      <a href="https://wa.me/5554981008904" target="_blank" rel="noopener" class="btn btn-primary">
+        Quero falar no WhatsApp →
+      </a>
+      <a href="#curso" class="btn btn-ghost">Conhecer o Curso</a>
+    </div>
+  </div>
+  <div class="scroll-hint" aria-hidden="true"></div>
+</section>
+
+<!-- ============ URGENCY COURSE ============ -->
+<section class="urgency">
+  <div class="container">
+    <div class="urgency-card reveal">
+      <span class="urgency-tag">Vagas Limitadas</span>
+      <h2>Formação em Hipnose Clínica</h2>
+      <p class="urgency-meta"><strong>23 e 24 de maio</strong> · Curitiba · Turma presencial com vagas limitadas</p>
+      <a href="https://pay.kiwify.com.br/lXce22U" target="_blank" rel="noopener" class="btn btn-gold">
+        Garantir Minha Vaga →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section class="about" id="sobre">
+  <div class="container about-grid">
+    <div class="about-visual reveal">
+      <span class="about-visual-glow-a"></span>
+      <span class="about-visual-glow-b"></span>
+      <img src="assets/fabio.jpg" alt="Fábio Carpes — Neurocientista e Hipnoterapeuta" />
+    </div>
+    <div class="about-text reveal reveal-delay-1">
+      <span class="eyebrow">Sobre</span>
+      <h2>Ciência, Serviço e a Mente Humana</h2>
+      <p>
+        Fábio Carpes é neurocientista e hipnoterapeuta, com uma trajetória única que combina rigor científico e experiência de vida na linha de frente. Bombeiro Militar há <strong>10 anos</strong>, ele traz para o consultório a mesma clareza e presença que a vida real exige.
+      </p>
+      <p>
+        Autor do livro <em>"Hipnoterapia: O Poder da Mente que Cura"</em>, atende em <strong>3 consultórios físicos</strong> e acumula pós-graduações em Psicologia Positiva, Comunicação e Desenvolvimento Humano e Segurança Pública.
+      </p>
+      <p>
+        Seu método une neurociência aplicada, hipnose clínica e uma escuta humana profunda — um trabalho que transforma o que parece travado em movimento.
+      </p>
+      <div class="about-stats">
+        <div>
+          <span class="stat-num" data-count="10">0</span>
+          <span class="stat-label">anos Bombeiro</span>
+        </div>
+        <div>
+          <span class="stat-num" data-count="3">0</span>
+          <span class="stat-label">Consultórios</span>
+        </div>
+        <div>
+          <span class="stat-num" data-count="6">0</span>
+          <span class="stat-label">Sessões no Método</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HYPNOTHERAPY ============ -->
+<section id="hipnoterapia">
+  <div class="container">
+    <div class="reveal" style="text-align:center; max-width:720px; margin:0 auto;">
+      <span class="eyebrow">O que é hipnoterapia</span>
+      <h2>Neurociência, não misticismo</h2>
+      <p>A hipnose clínica é uma ferramenta terapêutica reconhecida. Você não perde o controle, não dorme e não revela segredos. O que acontece é um estado de foco profundo onde a sua mente se torna permeável à mudança que você deseja.</p>
+    </div>
+    <div class="myths-grid">
+      <div class="myth-col myth reveal">
+        <h3>Mitos</h3>
+        <ul>
+          <li>"Você perde o controle da sua mente."</li>
+          <li>"É coisa de palco, truque, misticismo."</li>
+          <li>"Vai revelar segredos sem querer."</li>
+          <li>"Só funciona com pessoas sugestionáveis."</li>
+          <li>"É um tipo de sono induzido."</li>
+        </ul>
+      </div>
+      <div class="myth-col reality reveal reveal-delay-1">
+        <h3>Realidade</h3>
+        <ul>
+          <li>Você tem <strong>100% do controle</strong> o tempo todo.</li>
+          <li>É ciência aplicada e prática clínica validada.</li>
+          <li>Sua consciência permanece totalmente ativa.</li>
+          <li>Funciona com qualquer pessoa disposta.</li>
+          <li>É foco profundo — não é sono.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOR WHOM ============ -->
+<section style="background: linear-gradient(180deg, transparent, rgba(79,142,247,0.03));">
+  <div class="container">
+    <div class="reveal" style="text-align:center; max-width:700px; margin:0 auto 1rem;">
+      <span class="eyebrow">Para quem é</span>
+      <h2>Você se reconhece em algum destes pontos?</h2>
+      <p>O trabalho com hipnoterapia é indicado para quem quer destravar padrões internos — sem rodeios e com método.</p>
+    </div>
+    <div class="cards-grid">
+      <div class="card reveal">
+        <div class="card-icon">◉</div>
+        <h3>Ansiedade</h3>
+        <p>Pensamento em loop, aperto no peito, sensação de urgência constante.</p>
+      </div>
+      <div class="card reveal reveal-delay-1">
+        <div class="card-icon">◈</div>
+        <h3>Traumas</h3>
+        <p>Eventos do passado que ainda definem como você reage no presente.</p>
+      </div>
+      <div class="card reveal reveal-delay-2">
+        <div class="card-icon">◇</div>
+        <h3>Bloqueios Emocionais</h3>
+        <p>Barreiras invisíveis que travam relacionamentos e decisões.</p>
+      </div>
+      <div class="card reveal">
+        <div class="card-icon">▲</div>
+        <h3>Procrastinação</h3>
+        <p>A ponte entre o que você quer e o que você faz está rompida.</p>
+      </div>
+      <div class="card reveal reveal-delay-1">
+        <div class="card-icon">◆</div>
+        <h3>Insegurança</h3>
+        <p>Síndrome do impostor, autossabotagem, medo de se posicionar.</p>
+      </div>
+      <div class="card reveal reveal-delay-2">
+        <div class="card-icon">●</div>
+        <h3>Performance Estagnada</h3>
+        <p>Estagnação profissional e pessoal, mesmo sabendo o caminho.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ APPROACHES ============ -->
+<section id="abordagens">
+  <div class="container">
+    <div class="reveal" style="text-align:center; max-width:760px; margin:0 auto;">
+      <span class="eyebrow">Abordagens Terapêuticas</span>
+      <h2>Hipnose clínica & Regressão de memórias</h2>
+      <p>Duas ferramentas clínicas complementares que acessam camadas diferentes da sua história — e abrem espaço para a mudança que a mente racional sozinha não alcança.</p>
+    </div>
+    <div class="approaches-grid">
+      <div class="approach-card reveal">
+        <div class="approach-num">01</div>
+        <h3>Terapia com uso de hipnose</h3>
+        <p>Um estado de foco profundo e relaxamento em que a comunicação com o inconsciente fica direta. É nesse espaço que padrões automáticos, crenças limitantes e respostas emocionais podem ser reescritos — com técnica, estratégia e segurança clínica.</p>
+        <ul class="approach-list">
+          <li>Ressignificação de padrões inconscientes</li>
+          <li>Redução de ansiedade, insônia e sintomas psicossomáticos</li>
+          <li>Tratamento de fobias, vícios e hábitos automáticos</li>
+          <li>Fortalecimento de autoconfiança, foco e autoestima</li>
+          <li>Apoio ao tratamento de dor crônica e performance</li>
+        </ul>
+      </div>
+      <div class="approach-card reveal reveal-delay-1">
+        <div class="approach-num">02</div>
+        <h3>Regressão de memórias</h3>
+        <p>Técnica estruturada de retorno a experiências do passado — da infância às memórias afetivas que moldaram a sua forma de reagir ao mundo. Chegamos à raiz do problema, e não apenas ao sintoma que aparece hoje.</p>
+        <ul class="approach-list">
+          <li>Identificação da origem real de padrões travados</li>
+          <li>Liberação emocional de traumas antigos e abandonos</li>
+          <li>Integração de experiências mal resolvidas</li>
+          <li>Cura de padrões familiares e ciclos repetitivos</li>
+          <li>Reencontro com partes de você esquecidas ou silenciadas</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ METHOD ============ -->
+<section id="metodo">
+  <div class="container">
+    <div class="reveal" style="max-width:720px;">
+      <span class="eyebrow">O Método</span>
+      <h2>6 sessões estruturadas para destravar o que precisa mudar</h2>
+      <p>Cada etapa tem um objetivo claro e um propósito terapêutico. Nada é aleatório.</p>
+    </div>
+    <div class="timeline">
+      <div class="tl-item reveal">
+        <div class="tl-step">Etapa 0</div>
+        <h3>Avaliação Inicial</h3>
+        <p>Mapeamento completo: histórico, objetivos reais e estratégia personalizada.</p>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-step">Sessão 1</div>
+        <h3>Preparação</h3>
+        <p>Construção da base, vínculo terapêutico e primeira experiência hipnótica guiada.</p>
+      </div>
+      <div class="tl-item gold reveal">
+        <div class="tl-step">Sessões 2 · 3 · 4</div>
+        <h3>Intervenção Profunda</h3>
+        <p>Onde a mudança acontece. Trabalho direto com padrões inconscientes e ressignificação.</p>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-step">Sessão 5</div>
+        <h3>Consolidação</h3>
+        <p>Fixação dos novos padrões e integração com a rotina real.</p>
+      </div>
+      <div class="tl-item gold reveal">
+        <div class="tl-step">Sessão 6</div>
+        <h3>Retorno e Alta Performance</h3>
+        <p>Revisão dos resultados e ativação do estado de alta performance sustentável.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TESTIMONIALS ============ -->
+<section style="background: linear-gradient(180deg, transparent, rgba(201,168,76,0.03));">
+  <div class="container">
+    <div class="reveal" style="text-align:center; max-width:700px; margin:0 auto;">
+      <span class="eyebrow">Depoimentos</span>
+      <h2>Histórias de quem passou pelo processo</h2>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial reveal">
+        <p>Cheguei travado depois de um ano decisivo na empresa. Em 6 sessões, a ansiedade que me paralisava virou clareza. Não é sobre motivação — é sobre destravar de verdade.</p>
+        <div class="t-author">
+          <div class="t-avatar">RA</div>
+          <div class="t-info">
+            <strong>Ricardo A.</strong>
+            <span>CEO</span>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial reveal reveal-delay-1">
+        <p>Como advogada, vivo sob pressão. O Fábio me entregou ferramentas que uso no tribunal até hoje. Minha performance em audiências mudou de patamar — e minha paz também.</p>
+        <div class="t-author">
+          <div class="t-avatar">ML</div>
+          <div class="t-info">
+            <strong>Mariana L.</strong>
+            <span>Advogada</span>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial reveal reveal-delay-2">
+        <p>Desconfiado, achei que seria "conversa fiada". Saí de lá tendo entendido, com ciência, o que acontecia na minha cabeça. Método sério e transformador.</p>
+        <div class="t-author">
+          <div class="t-avatar">AS</div>
+          <div class="t-info">
+            <strong>André S.</strong>
+            <span>Diretor</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BOOK ============ -->
+<section class="book" id="livro">
+  <div class="container book-wrap">
+    <div class="book-visual reveal">
+      <div class="book-photo">
+        <span class="book-badge">Lançamento</span>
+        <img src="assets/livro.jpg" alt="Livro Hipnoterapia: O Poder da Mente que Cura — Fábio Carpes" />
+      </div>
+    </div>
+    <div class="reveal reveal-delay-1">
+      <span class="eyebrow">O Livro</span>
+      <h2>Hipnoterapia: O Poder da Mente que Cura</h2>
+      <p>
+        Uma obra que traduz, em linguagem clara, o que a neurociência já sabe sobre o potencial terapêutico da hipnose clínica. Mais do que teoria, é um mapa prático para quem quer entender como a mente constrói — e pode desconstruir — seus próprios bloqueios.
+      </p>
+      <p>
+        Escrito por quem vive a hipnoterapia no consultório, o livro é referência para pacientes, profissionais de saúde e qualquer pessoa curiosa sobre o funcionamento real da mente humana.
+      </p>
+      <a href="https://wa.me/5554981008904" target="_blank" rel="noopener" class="btn btn-primary" style="margin-top:1rem;">
+        Quero o livro →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COURSE ============ -->
+<section class="course" id="curso">
+  <div class="container">
+    <div class="reveal" style="text-align:center; max-width:720px; margin:0 auto;">
+      <span class="eyebrow">Formação Presencial</span>
+      <h2>Formação em Hipnose Clínica</h2>
+      <p>Uma imersão de dois dias em Curitiba, conduzida diretamente por Fábio Carpes. Teoria aplicada, prática supervisionada e ferramentas reais para começar a atender.</p>
+    </div>
+    <div class="course-card reveal reveal-delay-1">
+      <div class="course-grid">
+        <div class="course-info">
+          <h3 style="font-family: var(--ff-body); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.25em; background: linear-gradient(90deg, var(--blue), var(--pink)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 1rem; font-weight:700; display: inline-block;">O que você vai aprender</h3>
+          <ul class="course-features">
+            <li>Fundamentos de neurociência aplicados à hipnose clínica</li>
+            <li>Técnicas de indução, aprofundamento e ressignificação</li>
+            <li>Protocolos para ansiedade, traumas e bloqueios</li>
+            <li>Prática supervisionada em duplas — você sai atendendo</li>
+            <li>Ética, contraindicações e boas práticas clínicas</li>
+            <li>Para profissionais de saúde <strong>e</strong> iniciantes</li>
+            <li>Certificado de conclusão incluso</li>
+          </ul>
+          <a href="https://pay.kiwify.com.br/lXce22U" target="_blank" rel="noopener" class="btn btn-gold" style="margin-top:1rem;">
+            Garantir Minha Vaga →
+          </a>
+        </div>
+        <div class="course-sidebar">
+          <div class="course-date">23 e 24</div>
+          <div style="font-family: var(--ff-title); font-size: 1.3rem; color:#fff; line-height:1.1; margin-bottom: 0.3rem; font-weight:600;">de Maio</div>
+          <div class="course-city">Curitiba · PR</div>
+          <div class="course-seats">Turma de 30 vagas</div>
+          <p style="font-size: 0.9rem;">Certificado incluso · Material prático · Prática em dupla</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FINAL CTA ============ -->
+<section class="final-cta">
+  <div class="container">
+    <h2 class="reveal">Você está a uma decisão de uma vida com mais liberdade.</h2>
+    <p class="reveal reveal-delay-1">O próximo passo é uma conversa. Sem compromisso, sem pressão — apenas a clareza do que a hipnoterapia pode fazer pelo seu momento atual.</p>
+    <a href="https://wa.me/5554981008904" target="_blank" rel="noopener" class="btn btn-primary reveal reveal-delay-2" style="font-size: 1rem; padding: 1.1rem 2.2rem;">
+      Quero falar no WhatsApp →
+    </a>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="container">
+    <div class="logo"><img src="assets/logo.png" alt="Fábio Carpes" /></div>
+    <p>Neurocientista · Hipnoterapeuta · Autor</p>
+    <p style="margin-top:1rem;">© 2026 Fábio Carpes. Todos os direitos reservados.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  'use strict';
+
+  // ========== HEADER scroll ==========
+  const header = document.getElementById('header');
+  const onScroll = () => {
+    if (window.scrollY > 40) header.classList.add('scrolled');
+    else header.classList.remove('scrolled');
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // ========== REVEAL on scroll ==========
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting){
+        entry.target.classList.add('visible');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.14, rootMargin: '0px 0px -60px 0px' });
+  revealEls.forEach(el => io.observe(el));
+
+  // ========== NUMBER COUNTERS ==========
+  const counters = document.querySelectorAll('[data-count]');
+  const counterIO = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting){
+        const el = entry.target;
+        const target = parseInt(el.dataset.count, 10);
+        const duration = 1400;
+        const startTime = performance.now();
+        const step = (now) => {
+          const progress = Math.min((now - startTime) / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          el.textContent = Math.floor(eased * target);
+          if (progress < 1) requestAnimationFrame(step);
+          else el.textContent = target;
+        };
+        requestAnimationFrame(step);
+        counterIO.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+  counters.forEach(c => counterIO.observe(c));
+
+  // ========== NEURAL CANVAS ==========
+  const canvas = document.getElementById('neural-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let width = 0, height = 0, dpr = 1;
+  const nodes = [];
+  const NODE_COUNT = 60;
+  const MAX_DIST = 140;
+
+  function resize(){
+    dpr = window.devicePixelRatio || 1;
+    const rect = canvas.getBoundingClientRect();
+    width = rect.width;
+    height = rect.height;
+    canvas.width = width * dpr;
+    canvas.height = height * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  // create nodes
+  for (let i = 0; i < NODE_COUNT; i++){
+    nodes.push({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      vx: (Math.random() - 0.5) * 0.35,
+      vy: (Math.random() - 0.5) * 0.35,
+      r: Math.random() * 1.6 + 0.6,
+      g: Math.random() > 0.75 ? 'gold' : 'blue'
+    });
+  }
+
+  const mouse = { x: -9999, y: -9999 };
+  canvas.parentElement.addEventListener('mousemove', (e) => {
+    const rect = canvas.getBoundingClientRect();
+    mouse.x = e.clientX - rect.left;
+    mouse.y = e.clientY - rect.top;
+  });
+  canvas.parentElement.addEventListener('mouseleave', () => {
+    mouse.x = mouse.y = -9999;
+  });
+
+  function draw(){
+    ctx.clearRect(0, 0, width, height);
+
+    // update + draw nodes
+    for (let i = 0; i < nodes.length; i++){
+      const n = nodes[i];
+
+      // mouse attraction
+      const dx = mouse.x - n.x;
+      const dy = mouse.y - n.y;
+      const dist = Math.sqrt(dx*dx + dy*dy);
+      if (dist < 120){
+        n.vx += dx / dist * 0.015;
+        n.vy += dy / dist * 0.015;
+      }
+
+      n.x += n.vx;
+      n.y += n.vy;
+
+      // bounce
+      if (n.x < 0 || n.x > width)  n.vx *= -1;
+      if (n.y < 0 || n.y > height) n.vy *= -1;
+
+      // dampen
+      n.vx *= 0.985;
+      n.vy *= 0.985;
+      // floor velocity
+      if (Math.abs(n.vx) < 0.1) n.vx += (Math.random() - 0.5) * 0.05;
+      if (Math.abs(n.vy) < 0.1) n.vy += (Math.random() - 0.5) * 0.05;
+
+      // draw point
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+      ctx.fillStyle = n.g === 'gold' ? 'rgba(201,168,76,0.9)' : 'rgba(79,142,247,0.9)';
+      ctx.fill();
+    }
+
+    // connections
+    for (let i = 0; i < nodes.length; i++){
+      for (let j = i + 1; j < nodes.length; j++){
+        const a = nodes[i], b = nodes[j];
+        const dx = a.x - b.x, dy = a.y - b.y;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if (dist < MAX_DIST){
+          const alpha = (1 - dist / MAX_DIST) * 0.35;
+          ctx.beginPath();
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
+          ctx.strokeStyle = `rgba(79,142,247,${alpha})`;
+          ctx.lineWidth = 0.6;
+          ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+</script>
+</body>
+</html>
