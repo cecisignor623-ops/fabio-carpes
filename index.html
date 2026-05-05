@@ -1454,14 +1454,68 @@ src="https://www.facebook.com/tr?id=989830080235283&ev=PageView&noscript=1"/></n
 (function(){
   'use strict';
 
-  // ========== META PIXEL — InitiateCheckout nos CTAs ==========
+  // ========== KROB TRACKING CONFIG ==========
+  const TRACKING_BASE = 'https://carpe-tracking.pages.dev';
+  const PRODUCT_NAME = 'Formacao Hipnose Clinica - Curitiba';
+
+  function getCookie(name){
+    const m = document.cookie.match(new RegExp('(^|; )' + name + '=([^;]*)'));
+    return m ? decodeURIComponent(m[2]) : '';
+  }
+
+  // ========== TRK + CHECKOUT SESSION (page load) ==========
+  let trk = sessionStorage.getItem('krob_trk');
+  if (!trk){
+    trk = (crypto.randomUUID && crypto.randomUUID()) ||
+          String(Date.now()) + Math.random().toString(36).slice(2);
+    sessionStorage.setItem('krob_trk', trk);
+  }
+
+  const _params = new URLSearchParams(location.search);
+  fetch(TRACKING_BASE + '/checkout-session', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      trk,
+      utm_source:   _params.get('utm_source')   || '',
+      utm_medium:   _params.get('utm_medium')   || '',
+      utm_campaign: _params.get('utm_campaign') || '',
+      utm_content:  _params.get('utm_content')  || '',
+      utm_term:    _params.get('utm_term')    || '',
+      fbp: getCookie('_fbp'),
+      fbc: getCookie('_fbc'),
+      event_source_url: location.href,
+    }),
+  }).catch(()=>{});
+
+  // ========== CTAs Kiwify: InitiateCheckout dedup'd + sck=<trk> ==========
   document.querySelectorAll('a[href*="pay.kiwify.com.br"]').forEach(link => {
-    link.addEventListener('click', () => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const eventId = (crypto.randomUUID && crypto.randomUUID()) || String(Date.now()) + Math.random();
+
+      try {
+        const beaconBody = JSON.stringify({
+          event_name: 'InitiateCheckout',
+          event_id: eventId,
+          event_time: Math.floor(Date.now() / 1000),
+          event_source_url: location.href,
+          custom_data: { content_name: PRODUCT_NAME },
+          user_data: { fbp: getCookie('_fbp'), fbc: getCookie('_fbc') },
+        });
+        navigator.sendBeacon(TRACKING_BASE + '/tracker', new Blob([beaconBody], { type: 'application/json' }));
+      } catch(_){}
+
       try {
         if (typeof fbq === 'function'){
-          fbq('track', 'InitiateCheckout', { content_name: 'Formacao Hipnose Clinica - Curitiba' });
+          fbq('track', 'InitiateCheckout', { content_name: PRODUCT_NAME }, { eventID: eventId });
         }
-      } catch(e){}
+      } catch(_){}
+
+      const orig = link.href;
+      const sep = orig.includes('?') ? '&' : '?';
+      const dest = orig + sep + 'sck=' + encodeURIComponent(trk);
+      setTimeout(() => { window.location.href = dest; }, 120);
     });
   });
 

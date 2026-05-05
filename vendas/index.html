@@ -943,6 +943,43 @@ src="https://www.facebook.com/tr?id=989830080235283&ev=PageView&noscript=1"/></n
 (function(){
   'use strict';
 
+  // ========== KROB TRACKING CONFIG ==========
+  const TRACKING_BASE = 'https://carpe-tracking.pages.dev';
+  const PRODUCT_NAME = 'Formacao Hipnose Clinica - Curitiba';
+
+  function getCookie(name){
+    const m = document.cookie.match(new RegExp('(^|; )' + name + '=([^;]*)'));
+    return m ? decodeURIComponent(m[2]) : '';
+  }
+
+  // ========== TRK + CHECKOUT SESSION (page load) ==========
+  let trk = sessionStorage.getItem('krob_trk');
+  if (!trk){
+    trk = (crypto.randomUUID && crypto.randomUUID()) ||
+          ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+            (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c/4).toString(16));
+    sessionStorage.setItem('krob_trk', trk);
+  }
+
+  const params = new URLSearchParams(location.search);
+  const checkoutPayload = {
+    trk,
+    utm_source:   params.get('utm_source')   || '',
+    utm_medium:   params.get('utm_medium')   || '',
+    utm_campaign: params.get('utm_campaign') || '',
+    utm_content:  params.get('utm_content')  || '',
+    utm_term:    params.get('utm_term')    || '',
+    fbp: getCookie('_fbp'),
+    fbc: getCookie('_fbc'),
+    event_source_url: location.href,
+  };
+
+  fetch(TRACKING_BASE + '/checkout-session', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(checkoutPayload),
+  }).catch(()=>{});
+
   // ========== REVEAL ==========
   const revealEls = document.querySelectorAll('.reveal');
   const io = new IntersectionObserver((entries) => {
@@ -955,14 +992,46 @@ src="https://www.facebook.com/tr?id=989830080235283&ev=PageView&noscript=1"/></n
   }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
   revealEls.forEach(el => io.observe(el));
 
-  // ========== CTA TRACKING ==========
-  document.querySelectorAll('[data-track]').forEach(btn => {
-    btn.addEventListener('click', () => {
+  // ========== CTA TRACKING (InitiateCheckout dedup'd + sck appended) ==========
+  document.querySelectorAll('a[href*="pay.kiwify.com.br"]').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+
+      const eventId = (crypto.randomUUID && crypto.randomUUID()) || String(Date.now()) + Math.random();
+
+      // 1) Server-side beacon (sobrevive à navegação)
+      try {
+        const beaconBody = JSON.stringify({
+          event_name: 'InitiateCheckout',
+          event_id: eventId,
+          event_time: Math.floor(Date.now() / 1000),
+          event_source_url: location.href,
+          custom_data: { content_name: PRODUCT_NAME },
+          user_data: {
+            fbp: getCookie('_fbp'),
+            fbc: getCookie('_fbc'),
+          },
+        });
+        navigator.sendBeacon(
+          TRACKING_BASE + '/tracker',
+          new Blob([beaconBody], { type: 'application/json' })
+        );
+      } catch(_){}
+
+      // 2) Pixel client-side (mesmo event_id pra dedup)
       try {
         if (typeof fbq === 'function'){
-          fbq('track', 'InitiateCheckout', { content_name: 'Formacao Hipnose Clinica - Curitiba' });
+          fbq('track', 'InitiateCheckout', { content_name: PRODUCT_NAME }, { eventID: eventId });
         }
-      } catch(e){}
+      } catch(_){}
+
+      // 3) Append sck=<trk> à URL do Kiwify (chave para o webhook conectar a venda)
+      const orig = btn.href;
+      const sep = orig.includes('?') ? '&' : '?';
+      const dest = orig + sep + 'sck=' + encodeURIComponent(trk);
+
+      // 4) Pequeno delay pra beacon flushar antes da navegação
+      setTimeout(() => { window.location.href = dest; }, 120);
     });
   });
 })();
