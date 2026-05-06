@@ -1,8 +1,8 @@
 name: Deploy para Hostinger via FTP
 
+# DESATIVADO temporariamente — caminho FTP incorreto subia arquivos no lugar errado.
+# Reabilitar depois de confirmar o server-dir correto na Hostinger.
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 jobs:
