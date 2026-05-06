@@ -22,6 +22,8 @@ jobs:
           port: 21
           server-dir: /public_html/
           local-dir: ./
+          state-name: .ftp-deploy-sync-state-v2.json
+          log-level: verbose
           exclude: |
             **/.git*
             **/.git*/**
@@ -29,3 +31,4 @@ jobs:
             **/README.md
             **/.gitignore
             **/node_modules/**
+            **/krob-tracking-stack/**
