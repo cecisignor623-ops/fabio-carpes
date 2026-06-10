@@ -6,14 +6,13 @@ Site institucional de Fábio Carpes — neurocientista, hipnoterapeuta e autor.
 
 ```
 .
-├── index.html          Site principal
-├── vendas/             Página de vendas (URL: /vendas/)
-│   └── index.html
-└── assets/             Imagens compartilhadas
+├── index.html          Site principal (institucional + vendas do curso)
+└── assets/             Imagens
     ├── fabio.jpg
     ├── livro.jpg
     ├── logo.png
-    └── favicon.png
+    ├── favicon.png
+    └── curso/          Fotos do curso (foto-01.jpg ... foto-15.jpg)
 ```
 
 ## Deploy

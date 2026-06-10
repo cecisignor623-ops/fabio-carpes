@@ -1059,6 +1059,80 @@ src="https://www.facebook.com/tr?id=989830080235283&ev=PageView&noscript=1"/></n
   footer .logo img { height: 130px; }
 
   /* =====================================================
+     COURSE GALLERY (marquee)
+  ===================================================== */
+  .gallery{
+    background: linear-gradient(180deg, transparent, rgba(79,142,247,0.04));
+    overflow: hidden;
+  }
+  .gallery-head{
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto 3rem;
+  }
+  .marquee{
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    mask-image: linear-gradient(90deg, transparent 0, #000 8%, #000 92%, transparent 100%);
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 8%, #000 92%, transparent 100%);
+  }
+  .marquee + .marquee { margin-top: 1.2rem; }
+  .marquee-track{
+    display: flex;
+    gap: 1.2rem;
+    width: max-content;
+    animation: marqueeScroll 60s linear infinite;
+  }
+  .marquee-reverse .marquee-track{
+    animation-direction: reverse;
+    animation-duration: 75s;
+  }
+  .marquee:hover .marquee-track{ animation-play-state: paused; }
+  @keyframes marqueeScroll{
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  .marquee-item{
+    flex: 0 0 auto;
+    width: clamp(220px, 28vw, 360px);
+    height: clamp(160px, 20vw, 240px);
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid var(--border);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+    background: var(--bg-card);
+    transition: transform 0.5s ease, box-shadow 0.5s ease, border-color 0.5s ease;
+  }
+  .marquee-item::after{
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 55%, rgba(10,10,15,0.55) 100%);
+    pointer-events: none;
+    z-index: 1;
+  }
+  .marquee-item:hover{
+    transform: translateY(-6px) scale(1.02);
+    border-color: rgba(236,45,122,0.4);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 30px rgba(79,142,247,0.18);
+    z-index: 2;
+  }
+  .marquee-item img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: saturate(1.05) contrast(1.04);
+    transition: transform 0.8s ease;
+  }
+  .marquee-item:hover img{ transform: scale(1.08); }
+  @media (prefers-reduced-motion: reduce){
+    .marquee-track{ animation: none; }
+  }
+
+  /* =====================================================
      SCROLL ANIMATIONS
   ===================================================== */
   .reveal{
@@ -1095,6 +1169,7 @@ src="https://www.facebook.com/tr?id=989830080235283&ev=PageView&noscript=1"/></n
       <li><a href="#sobre">Sobre</a></li>
       <li><a href="#abordagens">Abordagens</a></li>
       <li><a href="#metodo">Método</a></li>
+      <li><a href="#galeria">Galeria</a></li>
       <li><a href="#livro">Livro</a></li>
       <li><a href="#curso">Curso</a></li>
       <li><a href="https://pay.kiwify.com.br/lXce22U" target="_blank" rel="noopener">Inscrições</a></li>
@@ -1129,7 +1204,7 @@ src="https://www.facebook.com/tr?id=989830080235283&ev=PageView&noscript=1"/></n
     <div class="urgency-card reveal">
       <span class="urgency-tag">Vagas Limitadas</span>
       <h2>Formação em Hipnose Clínica</h2>
-      <p class="urgency-meta"><strong>23 e 24 de maio</strong> · Curitiba · Turma presencial com vagas limitadas</p>
+      <p class="urgency-meta"><strong>15 e 16 de agosto</strong> · Chapecó · SC · Turma presencial com vagas limitadas</p>
       <a href="https://pay.kiwify.com.br/lXce22U" target="_blank" rel="noopener" class="btn btn-gold">
         Garantir Minha Vaga →
       </a>
@@ -1335,35 +1410,118 @@ src="https://www.facebook.com/tr?id=989830080235283&ev=PageView&noscript=1"/></n
     </div>
     <div class="testimonials-grid">
       <div class="testimonial reveal">
-        <p>Cheguei travado depois de um ano decisivo na empresa. Em 6 sessões, a ansiedade que me paralisava virou clareza. Não é sobre motivação — é sobre destravar de verdade.</p>
+        <p>Foi muito além de um aprendizado técnico — foi uma verdadeira expansão de consciência. A forma como você conduz o conhecimento, a energia que transmite e a paixão genuína pelo que faz tornam a experiência simplesmente inesquecível. Existem momentos na vida que marcam uma virada de chave, e sem dúvida este foi um deles para mim.</p>
         <div class="t-author">
-          <div class="t-avatar">RA</div>
+          <div class="t-avatar">MG</div>
           <div class="t-info">
-            <strong>Ricardo A.</strong>
-            <span>CEO</span>
+            <strong>Meriele Galvão</strong>
+            <span>Aluna · Hipnose Clínica</span>
           </div>
         </div>
       </div>
       <div class="testimonial reveal reveal-delay-1">
-        <p>Como advogada, vivo sob pressão. O Fábio me entregou ferramentas que uso no tribunal até hoje. Minha performance em audiências mudou de patamar — e minha paz também.</p>
+        <p>Estou muito grata pela oportunidade de ter estado nesse curso. Nunca imaginei que fosse atingir essa intensidade de emoções. Obrigado Fábio, obrigado aos staff, e obrigado aos colegas. Foi transformador.</p>
         <div class="t-author">
-          <div class="t-avatar">ML</div>
+          <div class="t-avatar">CP</div>
           <div class="t-info">
-            <strong>Mariana L.</strong>
-            <span>Advogada</span>
+            <strong>Carla Petry</strong>
+            <span>Aluna · Chapecó · SC</span>
           </div>
         </div>
       </div>
       <div class="testimonial reveal reveal-delay-2">
-        <p>Desconfiado, achei que seria "conversa fiada". Saí de lá tendo entendido, com ciência, o que acontecia na minha cabeça. Método sério e transformador.</p>
+        <p>O sentimento por esse fim de semana é de muita gratidão, alegria e satisfação! Gratidão a Fábio Carpes por compartilhar seus conhecimentos de uma forma simples e de fácil compreensão. Retorno para casa mais leve, mais feliz, me sentindo capaz e merecedora. Foi incrível.</p>
         <div class="t-author">
-          <div class="t-avatar">AS</div>
+          <div class="t-avatar">MR</div>
           <div class="t-info">
-            <strong>André S.</strong>
-            <span>Diretor</span>
+            <strong>Marcia Ramos</strong>
+            <span>Aluna · Lapa · PR</span>
           </div>
         </div>
       </div>
+      <div class="testimonial reveal">
+        <p>Agradeço pelas trocas de conhecimento, pela dedicação coletiva e pelas diversas vivências práticas que tivemos juntos. Superou minhas expectativas de verdade, muitas emoções. Cada dinâmica e discussão agregou muito ao meu crescimento pessoal e profissional.</p>
+        <div class="t-author">
+          <div class="t-avatar">LB</div>
+          <div class="t-info">
+            <strong>Lucimar Barros</strong>
+            <span>Aluna · Curso de Hipnose</span>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial reveal reveal-delay-1">
+        <p>Foi um prazer estar com todos vocês — só confirma que estou no caminho certo. Esse curso abriu inúmeras possibilidades. Além do aprendizado, conheci pessoas especiais, todas dispostas a usar o conhecimento para ajudar o próximo e para nos tornarmos pessoas melhores.</p>
+        <div class="t-author">
+          <div class="t-avatar">TM</div>
+          <div class="t-info">
+            <strong>Tati Moraes</strong>
+            <span>Aluna · Curso de Hipnose</span>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial reveal reveal-delay-2">
+        <p>Passando pra agradecer a equipe por todo conhecimento compartilhado! Eu fiquei extremamente feliz com o resultado e grata. A turma — não tenho dúvidas que serão ótimos também no conhecimento compartilhado.</p>
+        <div class="t-author">
+          <div class="t-avatar">CC</div>
+          <div class="t-info">
+            <strong>Camille C.</strong>
+            <span>Aluna · Curitiba · PR</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COURSE GALLERY ============ -->
+<section class="gallery" id="galeria">
+  <div class="container">
+    <div class="gallery-head reveal">
+      <span class="eyebrow">Galeria</span>
+      <h2>Como é o curso por dentro</h2>
+      <p>Registros das últimas turmas — prática supervisionada, demonstrações ao vivo e ambiente de imersão real.</p>
+    </div>
+  </div>
+
+  <div class="marquee reveal" aria-label="Galeria de fotos do curso (linha 1)">
+    <div class="marquee-track">
+      <div class="marquee-item"><img src="assets/curso/foto-01.jpg" alt="Curso de Hipnose Clínica - demonstração" loading="lazy" /></div>
+      <div class="marquee-item"><img src="assets/curso/foto-02.jpg" alt="Curso de Hipnose Clínica - prática" loading="lazy" /></div>
+      <div class="marquee-item"><img src="assets/curso/foto-03.jpg" alt="Curso de Hipnose Clínica - aula" loading="lazy" /></div>
+      <div class="marquee-item"><img src="assets/curso/foto-04.jpg" alt="Curso de Hipnose Clínica - turma" loading="lazy" /></div>
+      <div class="marquee-item"><img src="assets/curso/foto-05.jpg" alt="Curso de Hipnose Clínica - indução" loading="lazy" /></div>
+      <div class="marquee-item"><img src="assets/curso/foto-06.jpg" alt="Curso de Hipnose Clínica - dinâmica" loading="lazy" /></div>
+      <div class="marquee-item"><img src="assets/curso/foto-07.jpg" alt="Curso de Hipnose Clínica - alunos" loading="lazy" /></div>
+      <div class="marquee-item"><img src="assets/curso/foto-08.jpg" alt="Curso de Hipnose Clínica - prática em dupla" loading="lazy" /></div>
+      <!-- duplicado para loop infinito -->
+      <div class="marquee-item" aria-hidden="true"><img src="assets/curso/foto-01.jpg" alt="" loading="lazy" /></div>
+      <div class="marquee-item" aria-hidden="true"><img src="assets/curso/foto-02.jpg" alt="" loading="lazy" /></div>
+      <div class="marquee-item" aria-hidden="true"><img src="assets/curso/foto-03.jpg" alt="" loading="lazy" /></div>
+      <div class="marquee-item" aria-hidden="true"><img src="assets/curso/foto-04.jpg" alt="" loading="lazy" /></div>
+      <div class="marquee-item" aria-hidden="true"><img src="assets/curso/foto-05.jpg" alt="" loading="lazy" /></div>
+      <div class="marquee-item" aria-hidden="true"><img src="assets/curso/foto-06.jpg" alt="" loading="lazy" /></div>
+      <div class="marquee-item" aria-hidden="true"><img src="assets/curso/foto-07.jpg" alt="" loading="lazy" /></div>
+      <div class="marquee-item" aria-hidden="true"><img src="assets/curso/foto-08.jpg" alt="" loading="lazy" /></div>
+    </div>
+  </div>
+
+  <div class="marquee marquee-reverse reveal" aria-label="Galeria de fotos do curso (linha 2)">
+    <div class="marquee-track">
+      <div class="marquee-item"><img src="assets/curso/foto-09.jpg" alt="Curso de Hipnose Clínica - palestra" loading="lazy" /></div>
+      <div class="marquee-item"><img src="assets/curso/foto-10.jpg" alt="Curso de Hipnose Clínica - exercício" loading="lazy" /></div>
+      <div class="marquee-item"><img src="assets/curso/foto-11.jpg" alt="Curso de Hipnose Clínica - meditação" loading="lazy" /></div>
+      <div class="marquee-item"><img src="assets/curso/foto-12.jpg" alt="Curso de Hipnose Clínica - vivência" loading="lazy" /></div>
+      <div class="marquee-item"><img src="assets/curso/foto-13.jpg" alt="Curso de Hipnose Clínica - acolhimento" loading="lazy" /></div>
+      <div class="marquee-item"><img src="assets/curso/foto-14.jpg" alt="Curso de Hipnose Clínica - sala" loading="lazy" /></div>
+      <div class="marquee-item"><img src="assets/curso/foto-15.jpg" alt="Curso de Hipnose Clínica - presença" loading="lazy" /></div>
+      <!-- duplicado para loop infinito -->
+      <div class="marquee-item" aria-hidden="true"><img src="assets/curso/foto-09.jpg" alt="" loading="lazy" /></div>
+      <div class="marquee-item" aria-hidden="true"><img src="assets/curso/foto-10.jpg" alt="" loading="lazy" /></div>
+      <div class="marquee-item" aria-hidden="true"><img src="assets/curso/foto-11.jpg" alt="" loading="lazy" /></div>
+      <div class="marquee-item" aria-hidden="true"><img src="assets/curso/foto-12.jpg" alt="" loading="lazy" /></div>
+      <div class="marquee-item" aria-hidden="true"><img src="assets/curso/foto-13.jpg" alt="" loading="lazy" /></div>
+      <div class="marquee-item" aria-hidden="true"><img src="assets/curso/foto-14.jpg" alt="" loading="lazy" /></div>
+      <div class="marquee-item" aria-hidden="true"><img src="assets/curso/foto-15.jpg" alt="" loading="lazy" /></div>
     </div>
   </div>
 </section>
@@ -1399,7 +1557,7 @@ src="https://www.facebook.com/tr?id=989830080235283&ev=PageView&noscript=1"/></n
     <div class="reveal" style="text-align:center; max-width:720px; margin:0 auto;">
       <span class="eyebrow">Formação Presencial</span>
       <h2>Formação em Hipnose Clínica</h2>
-      <p>Uma imersão de dois dias em Curitiba, conduzida diretamente por Fábio Carpes. Teoria aplicada, prática supervisionada e ferramentas reais para começar a atender.</p>
+      <p>Uma imersão de dois dias em Chapecó, conduzida diretamente por Fábio Carpes. Curso 100% focado em hipnose clínica: teoria aplicada, prática supervisionada e ferramentas reais para começar a atender.</p>
     </div>
     <div class="course-card reveal reveal-delay-1">
       <div class="course-grid">
@@ -1419,9 +1577,9 @@ src="https://www.facebook.com/tr?id=989830080235283&ev=PageView&noscript=1"/></n
           </a>
         </div>
         <div class="course-sidebar">
-          <div class="course-date">23 e 24</div>
-          <div style="font-family: var(--ff-title); font-size: 1.3rem; color:#fff; line-height:1.1; margin-bottom: 0.3rem; font-weight:600;">de Maio</div>
-          <div class="course-city">Curitiba · PR</div>
+          <div class="course-date">15 e 16</div>
+          <div style="font-family: var(--ff-title); font-size: 1.3rem; color:#fff; line-height:1.1; margin-bottom: 0.3rem; font-weight:600;">de Agosto</div>
+          <div class="course-city">Chapecó · SC</div>
           <div class="course-seats">Turma de 30 vagas</div>
           <p style="font-size: 0.9rem;">Certificado incluso · Material prático · Prática em dupla</p>
         </div>
@@ -1456,7 +1614,7 @@ src="https://www.facebook.com/tr?id=989830080235283&ev=PageView&noscript=1"/></n
 
   // ========== KROB TRACKING CONFIG ==========
   const TRACKING_BASE = 'https://carpe-tracking.pages.dev';
-  const PRODUCT_NAME = 'Formacao Hipnose Clinica - Curitiba';
+  const PRODUCT_NAME = 'Formacao Hipnose Clinica - Chapeco';
 
   function getCookie(name){
     const m = document.cookie.match(new RegExp('(^|; )' + name + '=([^;]*)'));
